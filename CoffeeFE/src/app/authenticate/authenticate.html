@@ -1,0 +1,59 @@
+<app-header></app-header>
+<div class="md:grid md:grid-cols-2 md:w-full">
+  <div
+    class="relative hidden md:block h-screen bg-center bg-fixed bg-no-repeat bg-cover"
+    style="background-image: url('bg.jpeg')"
+  ></div>
+
+  <div class="bg-amber-50 md:flex md:items-center md:justify-center md:h-screen min-h-[100dvh]">
+    <div class="flex min-h-[100dvh] md:w-3/4 justify-center items-center">
+      <div class="bg-gray-50 min-h-screen md:min-h-0 w-full items-center p-6 flex flex-col rounded-md border border-amber-800">
+
+        <lucide-angular
+          [img]="key"
+          size="34"
+          class="text-white bg-amber-500 rounded-full p-1 w-[42px] h-[42px] mt-1"
+        ></lucide-angular>
+
+        <div class="flex flex-row gap-1 text-xl mt-5">
+          <h3 class="font-sans">Jonathan's</h3>
+          <h3 class="font-playfair italic text-amber-500">Coffee</h3>
+        </div>
+
+        <h3 class="mt-3 text-3xl font-medium font-serif md:text-2xl">Verification</h3>
+        <h3 class="text-sm mt-1 md:text-base font-light text-center">Enter the 6-digit code from your authenticator app.</h3>
+
+        <form [formGroup]="Form" (ngSubmit)="submit()" class="mt-6 flex flex-col items-center w-full">
+
+          <div class="flex gap-2 justify-center">
+            @for (box of digitBoxes; track $index) {
+              <input
+                #digitInput
+                type="text"
+                inputmode="numeric"
+                maxlength="1"
+                (input)="onDigitInput($event, $index)"
+                (keydown)="onKeyDown($event, $index)"
+                class="w-10 h-12 text-center text-xl font-bold border-2 border-amber-800 rounded-md bg-white focus:outline-none focus:border-amber-500"
+              />
+            }
+          </div>
+
+          @if (Form.get('verficationCode')?.invalid && Form.get('verficationCode')?.touched) {
+            <p class="text-red-500 text-xs mt-2">Please enter the full 6-digit code.</p>
+          }
+          <h3 class="text-red-500 text-lg">{{error}}</h3>
+
+          <button
+            type="submit"
+            [disabled]="Form.invalid"
+            class="text-white rounded-md w-full bg-amber-950 mt-6 font-bold p-2 justify-center hover:bg-opacity-70 md:text-xl disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Submit Code
+          </button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>

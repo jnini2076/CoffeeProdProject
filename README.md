@@ -1,0 +1,1 @@
+I created this web application in December 2025 and it has been live on AWS since. It is a full stack web application with Angular/Springboot. I am going to implement better coding strategies, api routes, git actions, terraform, junit, integration tests, just a better overall web application that works locally and in prod. 

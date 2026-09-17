@@ -1,0 +1,595 @@
+<app-header></app-header>
+<div class="min-h-full bg-amber-50">
+
+
+
+  <div class="bg-amber-950 py-10">
+    <div class="flex flex-row justify-center gap-1 ">
+      <lucide-icon [img]="coffee" class="text-amber-500" ></lucide-icon>
+      <h3 class="text-amber-500 text-sm md:text-lg tracking-widest">JONATHAN'S COFFEE SHOP</h3>
+      <lucide-icon [img]="coffee" class="text-amber-500"></lucide-icon>
+    </div>
+    <div class="flex flex-row justify-center text-5xl md:text-7xl mt-2 gap-2">
+      <h3 class="text-white">Our</h3>
+      <h3 class="text-amber-500 font-playfair italic">Menu</h3>
+    </div>
+    <div class="flex flex-col items-center text-white font-thin mt-3 md:text-lg">
+      <h3>Every cup crafted with care. explore our <br></h3>
+      <h3>  handcrafted beverages below.  </h3>
+      <hr class="h-0.5 border bg-yellow-300 w-1/6 mb-10 mt-5"  >
+    </div>
+        @if (USERNAME()) {
+    <div class="text-white font-bold font-playfair italic flex flex-row justify-center text-5xl md:text-7xl mt-2">Welcome {{ firstname }}
+
+    </div>
+  }
+
+  </div>
+  <div class="flex flex-row justify-center gap-1">
+    <lucide-icon [img]="ice" [size]="30" class="rounded-full  text-orange-300 md:mt-3 mt-1"></lucide-icon>
+    <h3
+    class="flex justify-center mt-2 mb-4 md:mt-5 text-amber-900 font-medium text-2xl md:text-4xl font-playfair italic"
+    id="espresso"
+  >
+    Espressos
+  </h3>
+  </div>
+
+
+  <div class="grid md:grid-cols-3 grid-cols-2 justify-items-center mt-1 md:gap-6 gap-4 px-4">
+    <div class="w-[140px] md:w-[300px] text-sm">
+      <div class="bg-white rounded-md shadow-sm shadow-gray-500 overflow-hidden">
+        <img
+          src="cozyexpresso.png "
+          class="w-full h-[200px] md:h-[350px] transition-transform duration-300 ease-out object-cover hover:scale-105"
+        />
+        <div class="p-3">
+          <h3 class="text-amber-800 text-md md:text-2xl underline">{{ CoffeeMenu[0].name }}</h3>
+          <h2 class="mt-1 text-amber-700 text-md">Rich and bold double shot</h2>
+          <div class="flex flex-row gap-2 mt-7 justify-between items-center ">
+            <h3 class="text-lg font-semibold">{{ CoffeeMenu[0].price | currency: 'USD' }}</h3>
+            <button
+              (click)="addToCart(CoffeeMenu[0])"
+              class="bg-amber-900 px-2 py-1 rounded-md text-white text-sm font-bold hover:text-amber-200 "
+            >
+              + Add
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="w-[140px] md:w-[300px] text-sm">
+      <div class="bg-white rounded-md shadow-sm shadow-gray-500 overflow-hidden">
+        <img
+          src="expressoMacchiato.png "
+          class="w-full h-[200px] md:h-[350px] transition-transform duration-300 ease-out object-cover hover:scale-105"
+        />
+        <div class="p-3">
+          <h3 class="text-amber-800 text-md md:text-2xl underline">{{ CoffeeMenu[1].name }}</h3>
+          <h2 class="mt-1 text-amber-700 text-md">Creamy, lightly indulgent</h2>
+          <div class="flex flex-row gap-2 mt-2 justify-between items-center">
+            <h3 class="text-lg font-semibold">{{ CoffeeMenu[1].price | currency: 'USD' }}</h3>
+            <button
+              (click)="addToCart(CoffeeMenu[1])"
+              class="bg-amber-900 px-2 py-1 rounded-md text-white text-sm font-bold hover:text-amber-200"
+            >
+              + Add
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="w-[140px] md:w-[300px] text-sm">
+      <div class="bg-white rounded-md shadow-sm shadow-gray-500 overflow-hidden">
+        <img
+          src="rich.png "
+          class="w-full h-[200px] md:h-[350px] transition-transform duration-300 ease-out object-cover hover:scale-105"
+        />
+        <div class="p-3">
+          <h3 class="text-amber-800 text-md md:text-2xl underline">{{ CoffeeMenu[2].name }}</h3>
+          <h2 class="mt-1 text-amber-700 text-md">Con panna</h2>
+          <div class="flex flex-row gap-2 mt-2 justify-between items-center">
+            <h3 class="text-lg font-semibold">{{ CoffeeMenu[2].price | currency: 'USD' }}</h3>
+            <button
+              (click)="addToCart(CoffeeMenu[2])"
+              class="bg-amber-900 px-2 py-1 rounded-md text-white text-sm font-bold hover:text-amber-200"
+            >
+              + Add
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="w-[140px] md:w-[300px] text-sm">
+      <div class="bg-white rounded-md shadow-sm shadow-gray-500 overflow-hidden">
+        <img
+          src="iceCream.png "
+          class="w-full h-[200px] md:h-[350px] transition-transform duration-300 ease-out object-cover hover:scale-105"
+        />
+        <div class="p-3">
+          <h3 class="text-amber-800 text-md md:text-2xl underline">{{ CoffeeMenu[3].name }}</h3>
+          <h2 class="mt-1 text-amber-700 text-md">Vanilla Ice Cream</h2>
+          <div class="flex flex-row gap-2 mt-2 justify-between items-center">
+            <h3 class="text-lg font-semibold">{{ CoffeeMenu[3].price | currency: 'USD' }}</h3>
+            <button
+              (click)="addToCart(CoffeeMenu[3])"
+              class="bg-amber-900 px-2 py-1 rounded-md text-white text-sm font-bold hover:text-amber-200"
+            >
+              + Add
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="w-[140px] md:w-[300px] text-sm">
+      <div class="bg-white rounded-md shadow-sm shadow-gray-500 overflow-hidden">
+        <img
+          src="iced.png "
+          class="w-full h-[200px] md:h-[350px] transition-transform duration-300 ease-out object-cover hover:scale-105"
+        />
+        <div class="p-3">
+          <h3 class="text-amber-800 text-md md:text-2xl underline">{{ CoffeeMenu[4].name }}</h3>
+          <h2 class="mt-1 text-amber-700 text-md">Tonic with orange slice</h2>
+          <div class="flex flex-row gap-2 mt-7 justify-between items-center">
+            <h3 class="text-lg font-semibold">{{ CoffeeMenu[4].price | currency: 'USD' }}</h3>
+            <button
+              (click)="addToCart(CoffeeMenu[4])"
+              class="bg-amber-900 px-2 py-1 rounded-md text-white text-sm font-bold hover:text-amber-200"
+            >
+              + Add
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="w-[140px] md:w-[300px] text-sm">
+      <div class="bg-white rounded-md shadow-sm shadow-gray-500 overflow-hidden">
+        <img
+          src="latte.png "
+          class="w-full h-[200px] md:h-[350px] transition-transform duration-300 ease-out object-cover hover:scale-105"
+        />
+        <div class="p-3">
+          <h3 class="text-amber-800 text-md md:text-2xl underline">{{ CoffeeMenu[5].name }}</h3>
+          <h2 class="mt-1 text-amber-700 text-md">Sweet caramel over iced milk</h2>
+          <div class="flex flex-row gap-2 mt-2 justify-between items-center">
+            <h3 class="text-lg font-semibold">{{ CoffeeMenu[5].price | currency: 'USD' }}</h3>
+            <button
+              (click)="addToCart(CoffeeMenu[5])"
+              class="bg-amber-900 px-2 py-1 rounded-md text-white text-sm font-bold hover:text-amber-200"
+            >
+              + Add
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-row justify-center gap-1">
+    <lucide-icon [img]="coffee" [size]="30" class="rounded-full  text-orange-300 md:mt-7 mt-4"></lucide-icon>
+    <h3
+    class="flex justify-center mt-8 mb-4 md:mt-12 text-amber-900 font-medium text-2xl md:text-4xl font-playlist italic"
+    id="frappe"
+  >
+    Frappes
+  </h3>
+  </div>
+
+
+  <div class="grid md:grid-cols-3 grid-cols-2 justify-items-center mt-1 md:gap-6 gap-4 px-4">
+    <div class="w-[140px] md:w-[300px] text-sm">
+      <div class="bg-white rounded-md shadow-sm shadow-gray-500 overflow-hidden">
+        <img
+          src="vanillafrappe.png "
+          class="w-full h-[200px] md:h-[350px] transition-transform duration-300 ease-out object-cover hover:scale-105"
+        />
+        <div class="p-3">
+          <h3 class="text-amber-800 text-md md:text-2xl underline">{{ CoffeeMenu[6].name }}</h3>
+          <h2 class="mt-1 text-amber-700 text-md">With Caramel</h2>
+          <div class="flex flex-row gap-2 mt-2 justify-between items-center">
+            <h3 class="text-lg font-semibold">{{ CoffeeMenu[6].price | currency: 'USD' }}</h3>
+            <button
+              (click)="addToCart(CoffeeMenu[6])"
+              class="bg-amber-900 px-2 py-1 rounded-md text-white text-sm font-bold hover:text-amber-200"
+            >
+              + Add
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="w-[140px] md:w-[300px] text-sm">
+      <div class="bg-white rounded-md shadow-sm shadow-gray-500 overflow-hidden">
+        <img
+          src="mocha.png "
+          class="w-full h-[200px] md:h-[350px] transition-transform duration-300 ease-out object-cover hover:scale-105"
+        />
+        <div class="p-3">
+          <h3 class="text-amber-800 text-md md:text-2xl underline">{{ CoffeeMenu[7].name }}</h3>
+          <h2 class="mt-1 text-amber-700 text-md">Chocolate Chips</h2>
+          <div class="flex flex-row gap-2 mt-2 justify-between items-center">
+            <h3 class="text-lg font-semibold">{{ CoffeeMenu[7].price | currency: 'USD' }}</h3>
+            <button
+              (click)="addToCart(CoffeeMenu[7])"
+              class="bg-amber-900 px-2 py-1 rounded-md text-white text-sm font-bold hover:text-amber-200"
+            >
+              + Add
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="w-[140px] md:w-[300px] text-sm">
+      <div class="bg-white rounded-md shadow-sm shadow-gray-500 overflow-hidden">
+        <img
+          src="cookie.png "
+          class="w-full h-[200px] md:h-[350px] transition-transform duration-300 ease-out object-cover hover:scale-105"
+        />
+        <div class="p-3">
+          <h3 class="text-amber-800 text-md md:text-2xl underline">{{ CoffeeMenu[8].name }}</h3>
+          <h2 class="mt-1 text-amber-700 text-md">With whipped cream</h2>
+          <div class="flex flex-row gap-2 mt-2 justify-between items-center">
+            <h3 class="text-lg font-semibold">{{ CoffeeMenu[8].price | currency: 'USD' }}</h3>
+            <button
+              (click)="addToCart(CoffeeMenu[8])"
+              class="bg-amber-900 px-2 py-1 rounded-md text-white text-sm font-bold hover:text-amber-200"
+            >
+              + Add
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="w-[140px] md:w-[300px] text-sm">
+      <div class="bg-white rounded-md shadow-sm shadow-gray-500 overflow-hidden">
+        <img
+          src="caramel.png "
+          class="w-full h-[200px] md:h-[350px] transition-transform duration-300 ease-out object-cover hover:scale-105"
+        />
+        <div class="p-3">
+          <h3 class="text-amber-800 text-md md:text-2xl underline">{{ CoffeeMenu[9].name }}</h3>
+          <h2 class="mt-1 text-amber-700 text-md">With a Crunch</h2>
+          <div class="flex flex-row gap-2 mt-12 justify-between items-center">
+            <h3 class="text-lg font-semibold">{{ CoffeeMenu[9].price | currency: 'USD' }}</h3>
+            <button
+              (click)="addToCart(CoffeeMenu[9])"
+              class="bg-amber-900 px-2 py-1 rounded-md text-white text-sm font-bold hover:text-amber-200"
+            >
+              + Add
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="w-[140px] md:w-[300px] text-sm">
+      <div class="bg-white rounded-md shadow-sm shadow-gray-500 overflow-hidden">
+        <img
+          src="peanut.png "
+          class="w-full h-[200px] md:h-[350px] transition-transform duration-300 ease-out object-cover hover:scale-105"
+        />
+        <div class="p-3">
+          <h3 class="text-amber-800 text-md md:text-2xl underline">{{ CoffeeMenu[10].name }}</h3>
+          <h2 class="mt-1 text-amber-700 text-md">Drenched in Peanut Butter</h2>
+          <div class="flex flex-row gap-2 mt-2 justify-between items-center">
+            <h3 class="text-lg font-semibold">{{ CoffeeMenu[10].price | currency: 'USD' }}</h3>
+            <button
+              (click)="addToCart(CoffeeMenu[10])"
+              class="bg-amber-900 px-2 py-1 rounded-md text-white text-sm font-bold hover:text-amber-200"
+            >
+              + Add
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="w-[140px] md:w-[300px] text-sm">
+      <div class="bg-white rounded-md shadow-sm shadow-gray-500 overflow-hidden">
+        <img
+          src="Smore.png "
+          class="w-full h-[200px] md:h-[350px] transition-transform duration-300 ease-out object-cover hover:scale-105"
+        />
+        <div class="p-3">
+          <h3 class="text-amber-800 text-md md:text-2xl underline">{{ CoffeeMenu[11].name }}</h3>
+          <h2 class="mt-1 text-amber-700 text-md">Drenched with Smores & Chocolate</h2>
+          <div class="flex flex-row gap-2 mt-2 justify-between items-center">
+            <h3 class="text-lg font-semibold">{{ CoffeeMenu[11].price | currency: 'USD' }}</h3>
+            <button
+              (click)="addToCart(CoffeeMenu[11])"
+              class="bg-amber-900 px-2 py-1 rounded-md text-white text-sm font-bold hover:text-amber-200"
+            >
+              + Add
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-row gap-2 justify-center">
+    <lucide-icon [img]="cookie" [size]="30" class="rounded-full  text-orange-300 md:mt-7 mt-4"></lucide-icon>
+    <h3
+    class="flex justify-center mt-8 mb-4 md:mt-12 text-amber-900 font-medium text-2xl md:text-4xl"
+    id="chocolate"
+  >
+    Coffee & Chocolate
+  </h3>
+  </div>
+
+
+  <div class="grid md:grid-cols-3 grid-cols-2 justify-items-center mt-1 md:gap-6 gap-4 px-4">
+    <div class="w-[140px] md:w-[300px] text-sm">
+      <div class="bg-white rounded-md shadow-sm shadow-gray-500 overflow-hidden">
+        <img
+          src="cro.png "
+          class="w-full h-[200px] md:h-[350px] transition-transform duration-300 ease-out object-cover hover:scale-105"
+        />
+        <div class="p-3">
+          <h3 class="text-amber-800 text-md md:text-2xl underline">{{ CoffeeMenu[12].name }}</h3>
+          <h2 class="mt-1 text-amber-700 text-md">Toasted</h2>
+          <div class="flex flex-row gap-2 mt-2 justify-between items-center">
+            <h3 class="text-lg font-semibold">{{ CoffeeMenu[12].price | currency: 'USD' }}</h3>
+            <button
+              (click)="addToCart(CoffeeMenu[12])"
+              class="bg-amber-900 px-2 py-1 rounded-md text-white text-sm font-bold hover:text-amber-200"
+            >
+              + Add
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="w-[140px] md:w-[300px] text-sm">
+      <div class="bg-white rounded-md shadow-sm shadow-gray-500 overflow-hidden">
+        <img
+          src="mach.png "
+          class="w-full h-[200px] md:h-[350px] transition-transform duration-300 ease-out object-cover hover:scale-105"
+        />
+        <div class="p-3">
+          <h3 class="text-amber-800 text-md md:text-2xl underline">{{ CoffeeMenu[13].name }}</h3>
+          <h2 class="mt-1 text-amber-700 text-md">Smooth taste</h2>
+          <div class="flex flex-row gap-2 mt-2 justify-between items-center">
+            <h3 class="text-lg font-semibold">{{ CoffeeMenu[13].price | currency: 'USD' }}</h3>
+            <button
+              (click)="addToCart(CoffeeMenu[13])"
+              class="bg-amber-900 px-2 py-1 rounded-md text-white text-sm font-bold hover:text-amber-200"
+            >
+              + Add
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="w-[140px] md:w-[300px] text-sm">
+      <div class="bg-white rounded-md shadow-sm shadow-gray-500 overflow-hidden">
+        <img
+          src="brown.png "
+          class="w-full h-[200px] md:h-[350px] transition-transform duration-300 ease-out object-cover hover:scale-105"
+        />
+        <div class="p-3">
+          <h3 class="text-amber-800 text-md md:text-2xl underline">{{ CoffeeMenu[14].name }}</h3>
+          <h2 class="mt-1 text-amber-700 text-md">Rich Chocolate Taste</h2>
+          <div class="flex flex-row gap-2 mt-2 justify-between items-center">
+            <h3 class="text-lg font-semibold">{{ CoffeeMenu[14].price | currency: 'USD' }}</h3>
+            <button
+              (click)="addToCart(CoffeeMenu[14])"
+              class="bg-amber-900 px-2 py-1 rounded-md text-white text-sm font-bold hover:text-amber-200"
+            >
+              + Add
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="w-[140px] md:w-[300px] text-sm">
+      <div class="bg-white rounded-md shadow-sm shadow-gray-500 overflow-hidden">
+        <img
+          src="cookieee.png "
+          class="w-full h-[200px] md:h-[350px] transition-transform duration-300 ease-out object-cover hover:scale-105"
+        />
+        <div class="p-3">
+          <h3 class="text-amber-800 text-md md:text-2xl underline">{{ CoffeeMenu[15].name }}</h3>
+          <h2 class="mt-1 text-amber-700 text-md">Crispy chocolate chip</h2>
+          <div class="flex flex-row gap-2 mt-2 justify-between items-center">
+            <h3 class="text-lg font-semibold">{{ CoffeeMenu[15].price | currency: 'USD' }}</h3>
+            <button
+              (click)="addToCart(CoffeeMenu[15])"
+              class="bg-amber-900 px-2 py-1 rounded-md text-white text-sm font-bold hover:text-amber-200"
+            >
+              + Add
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="w-[140px] md:w-[300px] text-sm">
+      <div class="bg-white rounded-md shadow-sm shadow-gray-500 overflow-hidden">
+        <img
+          src="hot.png "
+          class="w-full h-[200px] md:h-[350px] transition-transform duration-300 ease-out object-cover hover:scale-105"
+        />
+        <div class="p-3">
+          <h3 class="text-amber-800 text-md md:text-2xl underline">{{ CoffeeMenu[16].name }}</h3>
+          <h2 class="mt-1 text-amber-700 text-md">Mocha drizzle with whipped cream</h2>
+          <div class="flex flex-row gap-2 mt-2 justify-between items-center">
+            <h3 class="text-lg font-semibold">{{ CoffeeMenu[16].price | currency: 'USD' }}</h3>
+            <button
+              (click)="addToCart(CoffeeMenu[16])"
+              class="bg-amber-900 px-2 py-1 rounded-md text-white text-sm font-bold hover:text-amber-200"
+            >
+              + Add
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="w-[140px] md:w-[300px] text-sm">
+      <div class="bg-white rounded-md shadow-sm shadow-gray-500 overflow-hidden">
+        <img
+          src="capp.png "
+          class="w-full h-[200px] md:h-[350px] transition-transform duration-300 ease-out object-cover hover:scale-105"
+        />
+        <div class="p-3">
+          <h3 class="text-amber-800 text-md md:text-2xl underline">{{ CoffeeMenu[17].name }}</h3>
+          <h2 class="mt-1 text-amber-700 text-md">Steamed milk with espresso foam</h2>
+          <div class="flex flex-row gap-2 mt-2 justify-between items-center">
+            <h3 class="text-lg font-semibold">{{ CoffeeMenu[17].price | currency: 'USD' }}</h3>
+            <button
+              (click)="addToCart(CoffeeMenu[17])"
+              class="bg-amber-900 px-2 py-1 rounded-md text-white text-sm font-bold hover:text-amber-200"
+            >
+              + Add
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-row gap-1 justify-center">
+      <lucide-icon [img]="coffee" [size]="30" class="rounded-full  text-orange-300 md:mt-7 mt-4"></lucide-icon>
+    <h3
+    class="flex justify-center mt-8 mb-4 md:mt-12 text-amber-900 font-medium text-2xl md:text-4xl"
+    id="tea"
+  >
+    Tea
+  </h3>
+  </div>
+
+  <div class="grid md:grid-cols-3 grid-cols-2 justify-items-center mt-1 md:gap-6 gap-4 px-4">
+    <div class="w-[140px] md:w-[300px] text-sm">
+      <div class="bg-white rounded-md shadow-sm shadow-gray-500 overflow-hidden">
+        <img
+          src="tea1.png "
+          class="w-full h-[200px] md:h-[350px] transition-transform duration-300 ease-out object-cover hover:scale-105"
+        />
+        <div class="p-3">
+          <h3 class="text-amber-800 text-md md:text-2xl underline">{{ CoffeeMenu[18].name }}</h3>
+          <h2 class="mt-1 text-amber-700 text-md">Zesty citrus blend</h2>
+          <div class="flex flex-row gap-2 mt-2 justify-between items-center">
+            <h3 class="text-lg font-semibold">{{ CoffeeMenu[18].price | currency: 'USD' }}</h3>
+            <button
+              (click)="addToCart(CoffeeMenu[18])"
+              class="bg-amber-900 px-2 py-1 rounded-md text-white text-sm font-bold hover:text-amber-200"
+            >
+              + Add
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="w-[140px] md:w-[300px] text-sm">
+      <div class="bg-white rounded-md shadow-sm shadow-gray-500 overflow-hidden">
+        <img
+          src="berry.png "
+          class="w-full h-[200px] md:h-[350px] transition-transform duration-300 ease-out object-cover hover:scale-105"
+        />
+        <div class="p-3">
+          <h3 class="text-amber-800 text-md md:text-2xl underline">{{ CoffeeMenu[19].name }}</h3>
+          <h2 class="mt-1 text-amber-700 text-md"> Berry infusion</h2>
+          <div class="flex flex-row gap-2 mt-2 justify-between items-center">
+            <h3 class="text-lg font-semibold">{{ CoffeeMenu[19].price | currency: 'USD' }}</h3>
+            <button
+              (click)="addToCart(CoffeeMenu[19])"
+              class="bg-amber-900 px-2 py-1 rounded-md text-white text-sm font-bold hover:text-amber-200"
+            >
+              + Add
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="w-[140px] md:w-[300px] text-sm">
+      <div class="bg-white rounded-md shadow-sm shadow-gray-500 overflow-hidden">
+        <img
+          src="golden.png "
+          class="w-full h-[200px] md:h-[350px] transition-transform duration-300 ease-out object-cover hover:scale-105"
+        />
+        <div class="p-3">
+          <h3 class="text-amber-800 text-md md:text-2xl underline">{{ CoffeeMenu[20].name }}</h3>
+          <h2 class="mt-1 text-amber-700 text-md">Cool mint with floral notes</h2>
+          <div class="flex flex-row gap-2 mt-2 justify-between items-center">
+            <h3 class="text-lg font-semibold">{{ CoffeeMenu[20].price | currency: 'USD' }}</h3>
+            <button
+              (click)="addToCart(CoffeeMenu[20])"
+              class="bg-amber-900 px-2 py-1 rounded-md text-white text-sm font-bold hover:text-amber-200"
+            >
+              + Add
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="w-[140px] md:w-[300px] text-sm">
+      <div class="bg-white rounded-md shadow-sm shadow-gray-500 overflow-hidden">
+        <img
+          src="chai.png "
+          class="w-full h-[200px] md:h-[350px] transition-transform duration-300 ease-out object-cover hover:scale-105"
+        />
+        <div class="p-3">
+          <h3 class="text-amber-800 text-md md:text-2xl underline">{{ CoffeeMenu[21].name }}</h3>
+          <h2 class="mt-1 text-amber-700 text-md">Warm spices with  milk</h2>
+          <div class="flex flex-row gap-2 mt-6 justify-between items-center">
+            <h3 class="text-lg font-semibold">{{ CoffeeMenu[21].price | currency: 'USD' }}</h3>
+            <button
+              (click)="addToCart(CoffeeMenu[21])"
+              class="bg-amber-900 px-2 py-1 rounded-md text-white text-sm font-bold hover:text-amber-200"
+            >
+              + Add
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="w-[140px] md:w-[300px] text-sm">
+      <div class="bg-white rounded-md shadow-sm shadow-gray-500 overflow-hidden">
+        <img
+          src="matcha.png "
+          class="w-full h-[200px] md:h-[350px] transition-transform duration-300 ease-out object-cover hover:scale-105"
+        />
+        <div class="p-3">
+          <h3 class="text-amber-800 text-md md:text-2xl underline">{{ CoffeeMenu[22].name }}</h3>
+          <h2 class="mt-1 text-amber-700 text-md">Earthy green tea, stone-ground</h2>
+          <div class="flex flex-row gap-2 mt-2 justify-between items-center">
+            <h3 class="text-lg font-semibold">{{ CoffeeMenu[22].price | currency: 'USD' }}</h3>
+            <button
+              (click)="addToCart(CoffeeMenu[22])"
+              class="bg-amber-900 px-2 py-1 rounded-md text-white text-sm font-bold hover:text-amber-200"
+            >
+              + Add
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="w-[140px] md:w-[300px] text-sm mb-4">
+      <div class="bg-white rounded-md shadow-sm shadow-gray-500 overflow-hidden ">
+        <img
+          src="peach.png "
+          class="w-full h-[200px] md:h-[350px] transition-transform duration-300 ease-out object-cover hover:scale-105"
+        />
+        <div class="p-3">
+          <h3 class="text-amber-800 text-md md:text-2xl underline">{{ CoffeeMenu[23].name }}</h3>
+          <h2 class="mt-1 text-amber-700 text-md">Fruity peach with a ginger kick</h2>
+          <div class="flex flex-row gap-2 mt-2  justify-between items-center">
+            <h3 class="text-lg font-semibold">{{ CoffeeMenu[23].price | currency: 'USD' }}</h3>
+            <button
+              (click)="addToCart(CoffeeMenu[23])"
+              class="bg-amber-900 px-2 py-1 rounded-md text-white text-sm font-bold hover:text-amber-200"
+            >
+              + Add
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,46 @@
+<header>
+  <div class="bg-amber-800 min-h-9 w-full">
+    <div class="flex flex-row flex-wrap items-center justify-center gap-4 px-3 py-2">
+
+      <img src="coffee.png" class="h-8 w-8 md:h-20 md:w-20" routerLink="/home" />
+
+      <h3 class="text-white font-bold text-xs md:text-xl hover:text-yellow-300 hover:font-bold" routerLink="/menu">
+        Jonathan's Coffee Shop
+      </h3>
+
+      <div class="flex items-center gap-1" routerLink="/career">
+        <lucide-icon [img]="BriefcaseBusiness" size="18" class="text-white md:w-8 md:h-8"></lucide-icon>
+        <h3 class="text-white text-xs md:text-xl hover:text-yellow-300 hover:font-bold">Careers</h3>
+      </div>
+
+      @if (!isLoggedIn()) {
+        <div class="flex items-center gap-1" routerLink="/login">
+          <lucide-angular [img]="Login" size="18" class="text-white md:w-8 md:h-8"></lucide-angular>
+          <h3 class="text-xs text-white md:text-xl hover:text-yellow-300 hover:font-bold">Login</h3>
+        </div>
+      }
+
+      @if (isLoggedIn()) {
+        <div class="flex items-center gap-1 cursor-pointer" (click)="Logout()">
+          <lucide-angular [img]="Login" size="18" class="text-white md:w-8 md:h-8"></lucide-angular>
+          <h3 class="text-xs text-white md:text-xl hover:text-yellow-300 hover:font-bold">Logout</h3>
+        </div>
+        <div class="flex items-center gap-1" routerLink="/delete">
+          <lucide-angular [img]="user" size="18" class="text-white md:w-8 md:h-8"></lucide-angular>
+          <h3 class="text-xs text-white md:text-xl hover:text-yellow-300 hover:font-bold">Account</h3>
+        </div>
+      }
+
+      <div class="flex items-center gap-1 cursor-pointer" (click)="goToCart()">
+        <lucide-angular [img]="Cart" size="18" class="text-white md:w-8 md:h-8"></lucide-angular>
+        <h3 class="text-white text-xs md:text-xl hover:text-yellow-300 hover:font-bold">Cart</h3>
+      </div>
+
+      <div class="flex items-center gap-1 cursor-pointer" (click)="clearCart()">
+        <lucide-angular [img]="Trash" size="18" class="text-white md:h-8 md:w-8"></lucide-angular>
+        <h3 class="text-white text-xs md:text-xl hover:text-yellow-300 hover:font-bold">Delete Cart</h3>
+      </div>
+
+    </div>
+  </div>
+</header>

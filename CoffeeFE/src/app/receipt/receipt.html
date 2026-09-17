@@ -1,0 +1,62 @@
+<app-header></app-header>
+<div class="min-h-full bg-amber-50">
+
+  <div class="bg-amber-950 py-10">
+    <div class="flex flex-row justify-center gap-1">
+      <lucide-icon [img]="coffee" class="text-amber-500"></lucide-icon>
+      <h3 class="text-amber-500 text-sm md:text-lg tracking-widest">JONATHAN'S COFFEE SHOP</h3>
+      <lucide-icon [img]="coffee" class="text-amber-500"></lucide-icon>
+    </div>
+    <div class="flex flex-row justify-center text-5xl md:text-7xl mt-2 gap-2">
+      <h3 class="text-white">Order</h3>
+      <h3 class="text-amber-500 font-playfair italic">Receipt</h3>
+    </div>
+    <div class="flex flex-col items-center text-white font-thin mt-3 md:text-lg">
+      <h3>Thank you for your order!</h3>
+      <hr class="h-0.5 border bg-yellow-300 w-1/6 mb-10 mt-5" />
+    </div>
+  </div>
+
+  <div class="flex justify-center px-4 py-12">
+    <div class="bg-white rounded-md shadow-sm shadow-gray-400 p-8 w-full max-w-md">
+
+      <div class="flex flex-col items-center mb-8">
+        <lucide-icon [img]="checkCircle" [size]="64" class="text-amber-600"></lucide-icon>
+        <h3 class="text-2xl md:text-3xl font-playfair italic text-amber-900 mt-4">Order Confirmed!</h3>
+      </div>
+
+      <hr class="border-gray-200 mb-6" />
+
+      <div class="flex flex-row justify-between items-center mb-4">
+        <span class="text-gray-500 text-sm font-medium">Cardholder</span>
+        <span class="text-amber-900 font-semibold text-sm md:text-base">{{ cardHolderName }}</span>
+      </div>
+
+      <div class="flex flex-row justify-between items-center mb-4">
+        <span class="text-gray-500 text-sm font-medium">Order Total</span>
+        <span class="text-amber-900 font-bold text-sm md:text-base">{{ total | currency: 'USD' }}</span>
+      </div>
+
+      <hr class="border-gray-200 my-6" />
+
+      <div class="flex flex-col items-center text-center">
+        <lucide-icon [img]="clock" [size]="28" class="text-amber-600 mb-3"></lucide-icon>
+        <p class="text-gray-500 text-sm font-medium tracking-wide">YOUR ONLINE ORDER WILL BE READY AT</p>
+        <h3 class="text-4xl md:text-5xl font-bold text-amber-900 mt-3 font-mono tracking-widest">
+          {{ pickupTime }}
+        </h3>
+      </div>
+
+      <hr class="border-gray-200 my-6" />
+
+      <button
+        (click)="goBackToMenu()"
+        class="w-full bg-amber-900 text-white py-3 rounded-md font-bold hover:bg-amber-800 transition-colors"
+      >
+        Back to Menu
+      </button>
+
+    </div>
+  </div>
+
+</div>

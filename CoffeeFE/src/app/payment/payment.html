@@ -1,0 +1,132 @@
+<app-header></app-header>
+<div class="min-h-full bg-amber-50">
+  <div class="bg-amber-950 py-10">
+    <div class="flex flex-row justify-center gap-1">
+      <lucide-icon [img]="coffee" class="text-amber-500"></lucide-icon>
+      <h3 class="text-amber-500 text-sm md:text-lg tracking-widest">JONATHAN'S COFFEE SHOP</h3>
+      <lucide-icon [img]="coffee" class="text-amber-500"></lucide-icon>
+    </div>
+    <div class="flex flex-row justify-center text-5xl md:text-7xl mt-2 gap-2">
+      <h3 class="text-white">Your</h3>
+      <h3 class="text-amber-500 font-playfair italic">Order</h3>
+    </div>
+    <div class="flex flex-col items-center text-white font-thin mt-3 md:text-lg">
+      <h3>Review your cart and complete payment below.</h3>
+      <hr class="h-0.5 border bg-yellow-300 w-1/6 mb-10 mt-5" />
+    </div>
+  </div>
+
+  <div
+    class="md:grid md:grid-cols-2 md:items-start flex flex-col gap-6 px-4 md:px-10 py-10 max-w-5xl mx-auto"
+  >
+    <div class="bg-white rounded-md shadow-sm shadow-gray-400 p-5">
+      <div class="flex flex-row items-center gap-2 mb-5">
+        <lucide-icon [img]="cartIcon" [size]="22" class="text-amber-800"></lucide-icon>
+        <h3 class="text-amber-800 text-2xl md:text-3xl font-playfair italic underline">
+          Your Cart
+        </h3>
+      </div>
+
+      @if (cartItems.length === 0) {
+        <div class="flex flex-col items-center py-8 text-center">
+          <lucide-icon [img]="cartIcon" [size]="40" class="text-amber-200"></lucide-icon>
+          <p class="text-amber-700 font-medium mt-3">Your cart is empty</p>
+          <p class="text-gray-400 text-sm mt-1">Add items from the menu to get started.</p>
+        </div>
+      }
+
+      @for (item of cartItems; track $index) {
+        <div class="flex flex-row justify-between items-center border-b border-gray-100 py-3">
+          <div>
+            <h4 class="text-amber-900 font-medium text-sm md:text-base">{{ item.name }}</h4>
+            <p class="text-amber-700 text-sm">{{ item.price | currency: 'USD' }}</p>
+          </div>
+          <button
+            (click)="removeItem($index)"
+            class="text-gray-400 hover:text-red-500 transition-colors p-1 rounded"
+          >
+            <lucide-icon [img]="xIcon" [size]="18"></lucide-icon>
+          </button>
+        </div>
+      }
+
+      <div class="flex flex-row justify-between items-center mt-5 pt-4 border-t-2 border-amber-200">
+        <h4 class="text-amber-950 font-bold text-lg">Total</h4>
+        <h4 class="text-amber-950 font-bold text-lg">{{ total | currency: 'USD' }}</h4>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-md shadow-sm shadow-gray-400 p-5 md:self-start">
+      <div class="flex flex-row items-center gap-2 mb-5">
+        <lucide-icon [img]="creditCard" [size]="22" class="text-amber-800"></lucide-icon>
+        <h3 class="text-amber-800 text-2xl md:text-3xl font-playfair italic underline">Payment</h3>
+      </div>
+
+      <form (ngSubmit)="onSubmit()">
+        <div class="mb-4">
+          <label class="block text-amber-900 font-medium text-sm mb-1">Card Number</label>
+          <input
+            [(ngModel)]="cardNumber"
+            name="cardNumber"
+            readonly
+            class="w-full border border-gray-200 rounded-md p-2 text-sm font-mono tracking-widest bg-gray-50 cursor-not-allowed text-gray-500"
+          />
+        </div>
+
+        <div class="mb-4">
+          <label class="block text-amber-900 font-medium text-sm mb-1">Cardholder Name</label>
+          @if (USERNAME()) {
+            <input
+              [(ngModel)]="firstname"
+              name="cardHolderName"
+              readonly
+              class="w-full border border-gray-200 rounded-md p-2 text-sm bg-gray-50 cursor-not-allowed text-gray-500"
+            />
+          }
+
+          @if (!USERNAME()) {
+            <input
+              [(ngModel)]="cardHolderName"
+              name="cardHolderName"
+              readonly
+              class="w-full border border-gray-200 rounded-md p-2 text-sm bg-gray-50 cursor-not-allowed text-gray-500"
+            />
+          }
+        </div>
+
+        <div class="flex flex-row gap-3 mb-4">
+          <div class="flex-1">
+            <label class="block text-amber-900 font-medium text-sm mb-1">Expiry Date</label>
+            <input
+              [(ngModel)]="expiryDate"
+              name="expiryDate"
+              readonly
+              class="w-full border border-gray-200 rounded-md p-2 text-sm bg-gray-50 cursor-not-allowed text-gray-500"
+            />
+          </div>
+          <div class="flex-1">
+            <label class="block text-amber-900 font-medium text-sm mb-1">CVV</label>
+            <input
+              [(ngModel)]="cvv"
+              name="cvv"
+              readonly
+              class="w-full border border-gray-200 rounded-md p-2 text-sm bg-gray-50 cursor-not-allowed text-gray-500"
+            />
+          </div>
+        </div>
+
+        @if (errorMessage) {
+          <p class="text-red-600 text-sm mb-4 font-medium">{{ errorMessage }}</p>
+        }
+
+        <button
+          type="submit"
+          [disabled]="isSubmitting"
+          class="w-full bg-amber-900 text-white py-3 rounded-md font-bold hover:bg-amber-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm md:text-base"
+        >
+          {{ isSubmitting ? 'Processing...' : 'Place Order — ' + (total | currency: 'USD') }}
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

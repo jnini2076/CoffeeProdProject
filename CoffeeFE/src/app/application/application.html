@@ -1,0 +1,789 @@
+<app-header></app-header>
+<div class="flex flex-col min-h-screen bg-amber-50">
+
+  <section class="relative py-24 overflow-hidden">
+    <div class="absolute inset-0">
+      <img src="bg.jpeg" alt="Jonathan's Coffee Shop" class="w-full h-full object-cover" />
+      <div class="absolute inset-0 bg-black opacity-75"></div>
+    </div>
+    <div class="relative z-10 container max-w-4xl mx-auto px-6 text-center">
+      <a routerLink="/" class="inline-flex items-center gap-2 mb-6">
+        <lucide-icon [img]="coffee" class="w-5 h-5 text-amber-500"></lucide-icon>
+        <span class="text-lg font-serif text-white">
+          Jonathan's <span class="italic text-amber-500">Coffee</span>
+        </span>
+      </a>
+      <h1 class="text-4xl md:text-5xl font-serif text-white mb-3">
+        Join Our <span class="italic text-amber-500">Team</span>
+      </h1>
+      <p class="text-white/70 font-sans text-lg max-w-xl mx-auto">
+        Complete the application below and we'll be in touch soon.
+      </p>
+    </div>
+  </section>
+
+  <main class="flex-grow py-16 md:py-20">
+    <div class="container max-w-2xl mx-auto px-6">
+
+      @if (submitted) {
+        <div class="text-center py-10">
+          <h3 class="text-2xl font-serif text-gray-800 mb-4">
+            Thank you for submitting an application!
+          </h3>
+          <a
+            routerLink="/"
+            class="inline-block bg-amber-950 text-white font-sans font-semibold text-sm uppercase tracking-wide px-6 py-3 rounded-sm hover:bg-amber-800 transition-colors"
+          >
+            Back to Home
+          </a>
+        </div>
+      }
+
+      @if (!submitted) {
+
+        <div class="mb-10 mt-2">
+          <div class="flex items-center">
+            @for (step of steps; track step.number) {
+              @if (step.number > 1) {
+                <div
+                  class="flex-1 h-px transition-colors"
+                  [ngClass]="currentStep >= step.number ? 'bg-amber-500' : 'bg-gray-200'"
+                ></div>
+              }
+              <div class="flex flex-col items-center">
+                <div
+                  class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-sans font-semibold transition-colors"
+                  [ngClass]="
+                    currentStep >= step.number
+                      ? 'bg-amber-950 text-white'
+                      : 'bg-white border border-gray-300 text-gray-400'
+                  "
+                >
+                  {{ step.number }}
+                </div>
+                <span
+                  class="text-xs font-sans mt-1.5 hidden md:block transition-colors"
+                  [ngClass]="currentStep >= step.number ? 'text-amber-700 font-medium' : 'text-gray-400'"
+                >
+                  {{ step.label }}
+                </span>
+              </div>
+            }
+          </div>
+        </div>
+
+        <form [formGroup]="applicationForm">
+
+          @if (currentStep === 1) {
+            <div formGroupName="personal" class="bg-white border border-gray-300 rounded-lg p-6 md:p-8 space-y-5">
+              <div class="mb-2">
+                <span class="text-amber-600 font-sans text-xs tracking-widest uppercase">Step 1 of 6</span>
+                <h2 class="text-2xl font-serif text-gray-800 mt-1">Personal Information</h2>
+                <div class="w-10 h-px bg-amber-500 mt-3"></div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-sans font-medium text-gray-700 mb-1">
+                    First Name <span class="text-amber-600">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    formControlName="firstName"
+                    placeholder="Jonathan"
+                    class="w-full border rounded-sm p-2.5 font-sans text-sm text-gray-800 bg-gray-50 focus:outline-none focus:ring-1 transition-colors"
+                    [ngClass]="
+                      isInvalid('personal', 'firstName')
+                        ? 'border-red-400 focus:ring-red-400'
+                        : 'border-gray-300 focus:ring-amber-500 focus:border-amber-500'
+                    "
+                  />
+                  @if (hasError('personal', 'firstName', 'required')) {
+                    <p class="text-red-500 text-xs mt-1 font-sans">First name is required.</p>
+                  }
+                </div>
+                <div>
+                  <label class="block text-sm font-sans font-medium text-gray-700 mb-1">
+                    Last Name <span class="text-amber-600">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    formControlName="lastName"
+                    placeholder="Padilla"
+                    class="w-full border rounded-sm p-2.5 font-sans text-sm text-gray-800 bg-gray-50 focus:outline-none focus:ring-1 transition-colors"
+                    [ngClass]="
+                      isInvalid('personal', 'lastName')
+                        ? 'border-red-400 focus:ring-red-400'
+                        : 'border-gray-300 focus:ring-amber-500 focus:border-amber-500'
+                    "
+                  />
+                  @if (hasError('personal', 'lastName', 'required')) {
+                    <p class="text-red-500 text-xs mt-1 font-sans">Last name is required.</p>
+                  }
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-sm font-sans font-medium text-gray-700 mb-1">
+                  Email Address <span class="text-amber-600">*</span>
+                </label>
+                <input
+                  type="email"
+                  formControlName="email"
+                  placeholder="jonathan@example.com"
+                  class="w-full border rounded-sm p-2.5 font-sans text-sm text-gray-800 bg-gray-50 focus:outline-none focus:ring-1 transition-colors"
+                  [ngClass]="
+                    isInvalid('personal', 'email')
+                      ? 'border-red-400 focus:ring-red-400'
+                      : 'border-gray-300 focus:ring-amber-500 focus:border-amber-500'
+                  "
+                />
+                @if (hasError('personal', 'email', 'required')) {
+                  <p class="text-red-500 text-xs mt-1 font-sans">Email is required.</p>
+                }
+                @if (hasError('personal', 'email', 'email')) {
+                  <p class="text-red-500 text-xs mt-1 font-sans">Please enter a valid email address.</p>
+                }
+              </div>
+
+              <div>
+                <label class="block text-sm font-sans font-medium text-gray-700 mb-1">
+                  Phone Number <span class="text-amber-600">*</span>
+                </label>
+                <input
+                  type="tel"
+                  formControlName="phone"
+                  placeholder="8635551234"
+                  class="w-full border rounded-sm p-2.5 font-sans text-sm text-gray-800 bg-gray-50 focus:outline-none focus:ring-1 transition-colors"
+                  [ngClass]="
+                    isInvalid('personal', 'phone')
+                      ? 'border-red-400 focus:ring-red-400'
+                      : 'border-gray-300 focus:ring-amber-500 focus:border-amber-500'
+                  "
+                />
+                @if (hasError('personal', 'phone', 'required')) {
+                  <p class="text-red-500 text-xs mt-1 font-sans">Phone number is required.</p>
+                }
+                @if (hasError('personal', 'phone', 'pattern')) {
+                  <p class="text-red-500 text-xs mt-1 font-sans">
+                    Enter a 10-digit number with no spaces or dashes.
+                  </p>
+                }
+              </div>
+
+              <div>
+                <label class="block text-sm font-sans font-medium text-gray-700 mb-1">
+                  Street Address <span class="text-amber-600">*</span>
+                </label>
+                <input
+                  type="text"
+                  formControlName="address"
+                  placeholder="123 Main St"
+                  class="w-full border rounded-sm p-2.5 font-sans text-sm text-gray-800 bg-gray-50 focus:outline-none focus:ring-1 transition-colors"
+                  [ngClass]="
+                    isInvalid('personal', 'address')
+                      ? 'border-red-400 focus:ring-red-400'
+                      : 'border-gray-300 focus:ring-amber-500 focus:border-amber-500'
+                  "
+                />
+                @if (hasError('personal', 'address', 'required')) {
+                  <p class="text-red-500 text-xs mt-1 font-sans">Address is required.</p>
+                }
+              </div>
+
+              <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <div class="col-span-2 md:col-span-1">
+                  <label class="block text-sm font-sans font-medium text-gray-700 mb-1">
+                    City <span class="text-amber-600">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    formControlName="city"
+                    placeholder="Lakeland"
+                    class="w-full border rounded-sm p-2.5 font-sans text-sm text-gray-800 bg-gray-50 focus:outline-none focus:ring-1 transition-colors"
+                    [ngClass]="
+                      isInvalid('personal', 'city')
+                        ? 'border-red-400 focus:ring-red-400'
+                        : 'border-gray-300 focus:ring-amber-500 focus:border-amber-500'
+                    "
+                  />
+                  @if (hasError('personal', 'city', 'required')) {
+                    <p class="text-red-500 text-xs mt-1 font-sans">City is required.</p>
+                  }
+                </div>
+                <div>
+                  <label class="block text-sm font-sans font-medium text-gray-700 mb-1">
+                    State <span class="text-amber-600">*</span>
+                  </label>
+                  <select
+                    formControlName="state"
+                    class="w-full border rounded-sm p-2.5 font-sans text-sm text-gray-800 bg-gray-50 focus:outline-none focus:ring-1 transition-colors"
+                    [ngClass]="
+                      isInvalid('personal', 'state')
+                        ? 'border-red-400 focus:ring-red-400'
+                        : 'border-gray-300 focus:ring-amber-500 focus:border-amber-500'
+                    "
+                  >
+                    <option value="">State</option>
+                    @for (s of usStates; track s) {
+                      <option [value]="s">{{ s }}</option>
+                    }
+                  </select>
+                  @if (hasError('personal', 'state', 'required')) {
+                    <p class="text-red-500 text-xs mt-1 font-sans">Required.</p>
+                  }
+                </div>
+                <div>
+                  <label class="block text-sm font-sans font-medium text-gray-700 mb-1">
+                    ZIP Code <span class="text-amber-600">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    formControlName="zip"
+                    placeholder="33801"
+                    class="w-full border rounded-sm p-2.5 font-sans text-sm text-gray-800 bg-gray-50 focus:outline-none focus:ring-1 transition-colors"
+                    [ngClass]="
+                      isInvalid('personal', 'zip')
+                        ? 'border-red-400 focus:ring-red-400'
+                        : 'border-gray-300 focus:ring-amber-500 focus:border-amber-500'
+                    "
+                  />
+                  @if (hasError('personal', 'zip', 'required')) {
+                    <p class="text-red-500 text-xs mt-1 font-sans">ZIP is required.</p>
+                  }
+                  @if (hasError('personal', 'zip', 'pattern')) {
+                    <p class="text-red-500 text-xs mt-1 font-sans">5-digit ZIP code required.</p>
+                  }
+                </div>
+              </div>
+            </div>
+          }
+
+          @if (currentStep === 2) {
+            <div formGroupName="position" class="bg-white border border-gray-300 rounded-lg p-6 md:p-8 space-y-5">
+              <div class="mb-2">
+                <span class="text-amber-600 font-sans text-xs tracking-widest uppercase">Step 2 of 6</span>
+                <h2 class="text-2xl font-serif text-gray-800 mt-1">Position & Availability</h2>
+                <div class="w-10 h-px bg-amber-500 mt-3"></div>
+              </div>
+
+              <div>
+                <label class="block text-sm font-sans font-medium text-gray-700 mb-1">
+                  Position Applying For <span class="text-amber-600">*</span>
+                </label>
+                <input
+                  type="text"
+                  formControlName="positionApplying"
+                  placeholder="e.g. Barista Lead"
+                  class="w-full border rounded-sm p-2.5 font-sans text-sm text-gray-800 bg-gray-50 focus:outline-none focus:ring-1 transition-colors"
+                  [ngClass]="
+                    isInvalid('position', 'positionApplying')
+                      ? 'border-red-400 focus:ring-red-400'
+                      : 'border-gray-300 focus:ring-amber-500 focus:border-amber-500'
+                  "
+                />
+                @if (hasError('position', 'positionApplying', 'required')) {
+                  <p class="text-red-500 text-xs mt-1 font-sans">Position is required.</p>
+                }
+              </div>
+
+              <div>
+                <label class="block text-sm font-sans font-medium text-gray-700 mb-1">
+                  Employment Type <span class="text-amber-600">*</span>
+                </label>
+                <select
+                  formControlName="employmentType"
+                  class="w-full border rounded-sm p-2.5 font-sans text-sm text-gray-800 bg-gray-50 focus:outline-none focus:ring-1 transition-colors"
+                  [ngClass]="
+                    isInvalid('position', 'employmentType')
+                      ? 'border-red-400 focus:ring-red-400'
+                      : 'border-gray-300 focus:ring-amber-500 focus:border-amber-500'
+                  "
+                >
+                  <option value="">Select type</option>
+                  <option value="Full-Time">Full-Time</option>
+                  <option value="Part-Time">Part-Time</option>
+                </select>
+                @if (hasError('position', 'employmentType', 'required')) {
+                  <p class="text-red-500 text-xs mt-1 font-sans">Please select an employment type.</p>
+                }
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-sans font-medium text-gray-700 mb-1">
+                    Desired Start Date <span class="text-amber-600">*</span>
+                  </label>
+                  <input
+                    type="date"
+                    formControlName="desiredStartDate"
+                    class="w-full border rounded-sm p-2.5 font-sans text-sm text-gray-800 bg-gray-50 focus:outline-none focus:ring-1 transition-colors"
+                    [ngClass]="
+                      isInvalid('position', 'desiredStartDate')
+                        ? 'border-red-400 focus:ring-red-400'
+                        : 'border-gray-300 focus:ring-amber-500 focus:border-amber-500'
+                    "
+                  />
+                  @if (hasError('position', 'desiredStartDate', 'required')) {
+                    <p class="text-red-500 text-xs mt-1 font-sans">Start date is required.</p>
+                  }
+                </div>
+                <div>
+                  <label class="block text-sm font-sans font-medium text-gray-700 mb-1">
+                    Hours Available / Week <span class="text-amber-600">*</span>
+                  </label>
+                  <input
+                    type="number"
+                    formControlName="hoursAvailable"
+                    placeholder="e.g. 32"
+                    min="1"
+                    max="40"
+                    class="w-full border rounded-sm p-2.5 font-sans text-sm text-gray-800 bg-gray-50 focus:outline-none focus:ring-1 transition-colors"
+                    [ngClass]="
+                      isInvalid('position', 'hoursAvailable')
+                        ? 'border-red-400 focus:ring-red-400'
+                        : 'border-gray-300 focus:ring-amber-500 focus:border-amber-500'
+                    "
+                  />
+                  @if (hasError('position', 'hoursAvailable', 'required')) {
+                    <p class="text-red-500 text-xs mt-1 font-sans">Hours available is required.</p>
+                  }
+                  @if (hasError('position', 'hoursAvailable', 'min') || hasError('position', 'hoursAvailable', 'max')) {
+                    <p class="text-red-500 text-xs mt-1 font-sans">Must be between 1 and 40 hours.</p>
+                  }
+                </div>
+              </div>
+
+            </div>
+          }
+
+          @if (currentStep === 3) {
+            <div formGroupName="experience" class="bg-white border border-gray-300 rounded-lg p-6 md:p-8 space-y-5">
+              <div class="mb-2">
+                <span class="text-amber-600 font-sans text-xs tracking-widest uppercase">Step 3 of 6</span>
+                <h2 class="text-2xl font-serif text-gray-800 mt-1">Work Experience</h2>
+                <div class="w-10 h-px bg-amber-500 mt-3"></div>
+              </div>
+
+              <div>
+                <label class="block text-sm font-sans font-medium text-gray-700 mb-1">
+                  Do you have previous work experience? <span class="text-amber-600">*</span>
+                </label>
+                <select
+                  formControlName="hasPreviousExperience"
+                  class="w-full border rounded-sm p-2.5 font-sans text-sm text-gray-800 bg-gray-50 focus:outline-none focus:ring-1 transition-colors"
+                  [ngClass]="
+                    isInvalid('experience', 'hasPreviousExperience')
+                      ? 'border-red-400 focus:ring-red-400'
+                      : 'border-gray-300 focus:ring-amber-500 focus:border-amber-500'
+                  "
+                >
+                  <option value="">Select</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                </select>
+                @if (hasError('experience', 'hasPreviousExperience', 'required')) {
+                  <p class="text-red-500 text-xs mt-1 font-sans">Please select an option.</p>
+                }
+              </div>
+
+              @if (fc('experience', 'hasPreviousExperience').value === 'yes') {
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-sm font-sans font-medium text-gray-700 mb-1">
+                      Previous Employer
+                    </label>
+                    <input
+                      type="text"
+                      formControlName="previousEmployer"
+                      placeholder="Company name"
+                      class="w-full border border-gray-300 rounded-sm p-2.5 font-sans text-sm text-gray-800 bg-gray-50 focus:outline-none focus:ring-1 focus:ring-amber-500 focus:border-amber-500 transition-colors"
+                    />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-sans font-medium text-gray-700 mb-1">
+                      Job Title
+                    </label>
+                    <input
+                      type="text"
+                      formControlName="previousJobTitle"
+                      placeholder="e.g. Barista"
+                      class="w-full border border-gray-300 rounded-sm p-2.5 font-sans text-sm text-gray-800 bg-gray-50 focus:outline-none focus:ring-1 focus:ring-amber-500 focus:border-amber-500 transition-colors"
+                    />
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-sm font-sans font-medium text-gray-700 mb-1">Start Date</label>
+                    <input
+                      type="date"
+                      formControlName="previousStartDate"
+                      class="w-full border border-gray-300 rounded-sm p-2.5 font-sans text-sm text-gray-800 bg-gray-50 focus:outline-none focus:ring-1 focus:ring-amber-500 focus:border-amber-500 transition-colors"
+                    />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-sans font-medium text-gray-700 mb-1">End Date</label>
+                    <input
+                      type="date"
+                      formControlName="previousEndDate"
+                      class="w-full border border-gray-300 rounded-sm p-2.5 font-sans text-sm text-gray-800 bg-gray-50 focus:outline-none focus:ring-1 focus:ring-amber-500 focus:border-amber-500 transition-colors"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label class="block text-sm font-sans font-medium text-gray-700 mb-1">
+                    Reason for Leaving
+                  </label>
+                  <textarea
+                    formControlName="reasonForLeaving"
+                    rows="3"
+                    placeholder="Briefly explain why you left..."
+                    class="w-full border border-gray-300 rounded-sm p-2.5 font-sans text-sm text-gray-800 bg-gray-50 focus:outline-none focus:ring-1 focus:ring-amber-500 focus:border-amber-500 transition-colors resize-none"
+                  ></textarea>
+                </div>
+              }
+
+              <div>
+                <label class="block text-sm font-sans font-medium text-gray-700 mb-1">
+                  Additional Skills or Certifications
+                  <span class="text-gray-400 font-normal">(optional)</span>
+                </label>
+                <textarea
+                  formControlName="additionalExperience"
+                  rows="3"
+                  placeholder="Relevant skills, certifications, or training (e.g. food handler's license, barista training)..."
+                  class="w-full border border-gray-300 rounded-sm p-2.5 font-sans text-sm text-gray-800 bg-gray-50 focus:outline-none focus:ring-1 focus:ring-amber-500 focus:border-amber-500 transition-colors resize-none"
+                ></textarea>
+              </div>
+            </div>
+          }
+
+          @if (currentStep === 4) {
+            <div formGroupName="about" class="bg-white border border-gray-300 rounded-lg p-6 md:p-8 space-y-5">
+              <div class="mb-2">
+                <span class="text-amber-600 font-sans text-xs tracking-widest uppercase">Step 4 of 6</span>
+                <h2 class="text-2xl font-serif text-gray-800 mt-1">About You</h2>
+                <div class="w-10 h-px bg-amber-500 mt-3"></div>
+              </div>
+
+              <div>
+                <label class="block text-sm font-sans font-medium text-gray-700 mb-1">
+                  Why do you want to work at Jonathan's Coffee?
+                  <span class="text-amber-600">*</span>
+                </label>
+                <textarea
+                  formControlName="whyJoin"
+                  rows="5"
+                  placeholder="Tell us what draws you to our team and what you'd bring to the shop..."
+                  class="w-full border rounded-sm p-2.5 font-sans text-sm text-gray-800 bg-gray-50 focus:outline-none focus:ring-1 transition-colors resize-none"
+                  [ngClass]="
+                    isInvalid('about', 'whyJoin')
+                      ? 'border-red-400 focus:ring-red-400'
+                      : 'border-gray-300 focus:ring-amber-500 focus:border-amber-500'
+                  "
+                ></textarea>
+                <div class="flex justify-between items-start mt-1">
+                  <div>
+                    @if (hasError('about', 'whyJoin', 'required')) {
+                      <p class="text-red-500 text-xs font-sans">This field is required.</p>
+                    }
+                    @if (hasError('about', 'whyJoin', 'minlength')) {
+                      <p class="text-red-500 text-xs font-sans">Please write at least 50 characters.</p>
+                    }
+                  </div>
+                  <span class="text-gray-400 text-xs font-sans shrink-0 ml-2">
+                    {{ fc('about', 'whyJoin').value?.length || 0 }} chars
+                  </span>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-sm font-sans font-medium text-gray-700 mb-1">
+                  Tell us about yourself <span class="text-amber-600">*</span>
+                </label>
+                <textarea
+                  formControlName="aboutYourself"
+                  rows="5"
+                  placeholder="Share your background, personality, and what makes you a great fit..."
+                  class="w-full border rounded-sm p-2.5 font-sans text-sm text-gray-800 bg-gray-50 focus:outline-none focus:ring-1 transition-colors resize-none"
+                  [ngClass]="
+                    isInvalid('about', 'aboutYourself')
+                      ? 'border-red-400 focus:ring-red-400'
+                      : 'border-gray-300 focus:ring-amber-500 focus:border-amber-500'
+                  "
+                ></textarea>
+                <div class="flex justify-between items-start mt-1">
+                  <div>
+                    @if (hasError('about', 'aboutYourself', 'required')) {
+                      <p class="text-red-500 text-xs font-sans">This field is required.</p>
+                    }
+                    @if (hasError('about', 'aboutYourself', 'minlength')) {
+                      <p class="text-red-500 text-xs font-sans">Please write at least 50 characters.</p>
+                    }
+                  </div>
+                  <span class="text-gray-400 text-xs font-sans shrink-0 ml-2">
+                    {{ fc('about', 'aboutYourself').value?.length || 0 }} chars
+                  </span>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-sm font-sans font-medium text-gray-700 mb-1">
+                  How did you hear about us? <span class="text-amber-600">*</span>
+                </label>
+                <select
+                  formControlName="howDidYouHear"
+                  class="w-full border rounded-sm p-2.5 font-sans text-sm text-gray-800 bg-gray-50 focus:outline-none focus:ring-1 transition-colors"
+                  [ngClass]="
+                    isInvalid('about', 'howDidYouHear')
+                      ? 'border-red-400 focus:ring-red-400'
+                      : 'border-gray-300 focus:ring-amber-500 focus:border-amber-500'
+                  "
+                >
+                  <option value="">Select an option</option>
+                  @for (option of howDidYouHearOptions; track option) {
+                    <option [value]="option">{{ option }}</option>
+                  }
+                </select>
+                @if (hasError('about', 'howDidYouHear', 'required')) {
+                  <p class="text-red-500 text-xs mt-1 font-sans">Please select an option.</p>
+                }
+              </div>
+            </div>
+          }
+
+          @if (currentStep === 5) {
+            <div class="bg-white border border-gray-300 rounded-lg p-6 md:p-8 space-y-5">
+              <div class="mb-2">
+                <span class="text-amber-600 font-sans text-xs tracking-widest uppercase">Step 5 of 6</span>
+                <h2 class="text-2xl font-serif text-gray-800 mt-1">Resume Upload</h2>
+                <div class="w-10 h-px bg-amber-500 mt-3"></div>
+              </div>
+
+              <p class="text-sm font-sans text-gray-600 leading-relaxed">
+                Upload your resume in PDF or Word format (max 5MB). This will be attached directly
+                to your application.
+              </p>
+
+              @if (!resumeFile) {
+                <label
+                  for="resumeInput"
+                  class="flex flex-col items-center justify-center w-full h-52 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer bg-gray-50 hover:border-amber-400 hover:bg-amber-50/50 transition-colors"
+                >
+                  <div class="flex flex-col items-center gap-3">
+                    <div class="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center">
+                      <lucide-icon [img]="upload" class="w-5 h-5 text-amber-600"></lucide-icon>
+                    </div>
+                    <p class="text-sm font-sans text-gray-600">
+                      <span class="font-semibold text-amber-700">Click to upload</span>
+                      or drag and drop
+                    </p>
+                    <p class="text-xs font-sans text-gray-400">PDF, DOC, DOCX — up to 5MB</p>
+                  </div>
+                  <input
+                    id="resumeInput"
+                    type="file"
+                    accept=".pdf,.doc,.docx"
+                    class="hidden"
+                    (change)="onFileSelected($event)"
+                  />
+                </label>
+              }
+
+              @if (resumeFile) {
+                <div
+                  class="flex items-center justify-between p-4 border border-amber-200 rounded-lg bg-amber-50"
+                >
+                  <div class="flex items-center gap-3">
+                    <div
+                      class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center shrink-0"
+                    >
+                      <lucide-icon [img]="fileText" class="w-5 h-5 text-amber-600"></lucide-icon>
+                    </div>
+                    <div>
+                      <p class="text-sm font-sans font-medium text-gray-800">{{ resumeFileName }}</p>
+                      <p class="text-xs font-sans text-gray-500">
+                        {{ (resumeFile.size / 1024).toFixed(1) }} KB
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    (click)="removeResume()"
+                    class="text-xs font-sans text-red-500 hover:text-red-700 transition-colors underline"
+                  >
+                    Remove
+                  </button>
+                </div>
+              }
+
+              @if (resumeError) {
+                <p class="text-red-500 text-sm font-sans">{{ resumeError }}</p>
+              }
+            </div>
+          }
+
+          @if (currentStep === 6) {
+            <div class="bg-white border border-gray-300 rounded-lg p-6 md:p-8 space-y-6">
+              <div class="mb-2">
+                <span class="text-amber-600 font-sans text-xs tracking-widest uppercase">Step 6 of 6</span>
+                <h2 class="text-2xl font-serif text-gray-800 mt-1">Review Your Application</h2>
+                <div class="w-10 h-px bg-amber-500 mt-3"></div>
+              </div>
+
+              <p class="text-sm font-sans text-gray-600">
+                Review everything below before submitting. Use the Back button to make any changes.
+              </p>
+
+              <div>
+                <h3 class="text-base font-serif text-gray-800 mb-3 pb-2 border-b border-gray-200">
+                  Personal Information
+                </h3>
+                <dl class="grid grid-cols-2 gap-x-6 gap-y-2 text-sm font-sans">
+                  <dt class="text-gray-500">Name</dt>
+                  <dd class="text-gray-800">
+                    {{ applicationForm.value.personal.firstName }}
+                    {{ applicationForm.value.personal.lastName }}
+                  </dd>
+                  <dt class="text-gray-500">Email</dt>
+                  <dd class="text-gray-800 break-all">{{ applicationForm.value.personal.email }}</dd>
+                  <dt class="text-gray-500">Phone</dt>
+                  <dd class="text-gray-800">{{ applicationForm.value.personal.phone }}</dd>
+                  <dt class="text-gray-500">Address</dt>
+                  <dd class="text-gray-800">
+                    {{ applicationForm.value.personal.address }},
+                    {{ applicationForm.value.personal.city }},
+                    {{ applicationForm.value.personal.state }}
+                    {{ applicationForm.value.personal.zip }}
+                  </dd>
+                </dl>
+              </div>
+
+              <div>
+                <h3 class="text-base font-serif text-gray-800 mb-3 pb-2 border-b border-gray-200">
+                  Position & Availability
+                </h3>
+                <dl class="grid grid-cols-2 gap-x-6 gap-y-2 text-sm font-sans">
+                  <dt class="text-gray-500">Position</dt>
+                  <dd class="text-gray-800">{{ applicationForm.value.position.positionApplying }}</dd>
+                  <dt class="text-gray-500">Employment Type</dt>
+                  <dd class="text-gray-800">{{ applicationForm.value.position.employmentType }}</dd>
+                  <dt class="text-gray-500">Start Date</dt>
+                  <dd class="text-gray-800">{{ applicationForm.value.position.desiredStartDate }}</dd>
+                  <dt class="text-gray-500">Hours / Week</dt>
+                  <dd class="text-gray-800">{{ applicationForm.value.position.hoursAvailable }}</dd>
+                </dl>
+              </div>
+
+              <div>
+                <h3 class="text-base font-serif text-gray-800 mb-3 pb-2 border-b border-gray-200">
+                  Work Experience
+                </h3>
+                <dl class="grid grid-cols-2 gap-x-6 gap-y-2 text-sm font-sans">
+                  <dt class="text-gray-500">Previous Experience</dt>
+                  <dd class="text-gray-800 capitalize">
+                    {{ applicationForm.value.experience.hasPreviousExperience }}
+                  </dd>
+                  @if (applicationForm.value.experience.hasPreviousExperience === 'yes') {
+                    <dt class="text-gray-500">Employer</dt>
+                    <dd class="text-gray-800">
+                      {{ applicationForm.value.experience.previousEmployer || '—' }}
+                    </dd>
+                    <dt class="text-gray-500">Job Title</dt>
+                    <dd class="text-gray-800">
+                      {{ applicationForm.value.experience.previousJobTitle || '—' }}
+                    </dd>
+                  }
+                </dl>
+              </div>
+
+              <div>
+                <h3 class="text-base font-serif text-gray-800 mb-3 pb-2 border-b border-gray-200">
+                  About You
+                </h3>
+                <dl class="grid grid-cols-2 gap-x-6 gap-y-2 text-sm font-sans">
+                  <dt class="text-gray-500">How You Heard</dt>
+                  <dd class="text-gray-800">{{ applicationForm.value.about.howDidYouHear }}</dd>
+                </dl>
+              </div>
+
+              <div>
+                <h3 class="text-base font-serif text-gray-800 mb-3 pb-2 border-b border-gray-200">
+                  Resume
+                </h3>
+                <div class="flex items-center gap-3">
+                  <div class="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center">
+                    <lucide-icon [img]="fileText" class="w-4 h-4 text-amber-600"></lucide-icon>
+                  </div>
+                  <p class="text-sm font-sans text-gray-800">{{ resumeFileName }}</p>
+                </div>
+              </div>
+
+              <p class="text-xs font-sans text-gray-400 leading-relaxed border-t border-gray-100 pt-4">
+                By submitting this application, you confirm that all information provided is accurate
+                and complete to the best of your knowledge.
+              </p>
+            </div>
+          }
+
+          <div class="flex justify-between items-center mt-6 mb-16">
+            @if (currentStep > 1) {
+              <button
+                type="button"
+                (click)="prevStep()"
+                class="flex items-center gap-1.5 font-sans text-sm text-gray-600 hover:text-gray-900 transition-colors"
+              >
+                <lucide-icon [img]="chevronLeft" class="w-4 h-4"></lucide-icon>
+                Back
+              </button>
+            } @else {
+              <div></div>
+            }
+
+            @if (currentStep < totalSteps) {
+              <button
+                type="button"
+                (click)="nextStep()"
+                class="flex items-center gap-2 bg-amber-950 text-white font-sans font-semibold text-sm uppercase tracking-wide px-6 h-10 rounded-sm hover:bg-amber-800 transition-colors"
+              >
+                Next
+                <lucide-icon [img]="chevronRight" class="w-4 h-4"></lucide-icon>
+              </button>
+            } @else {
+              <button
+                type="button"
+                (click)="submitApplication()"
+                [disabled]="submitting"
+                class="bg-amber-950 text-white font-sans font-semibold text-sm uppercase tracking-wide px-6 h-10 rounded-sm hover:bg-amber-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {{ submitting ? 'Submitting...' : 'Submit Application' }}
+              </button>
+            }
+          </div>
+
+        </form>
+      }
+      @if(good) {
+        <h3 class="text-green text-xl flex justify-center">Thank you for submitting a application</h3>
+      }
+    </div>
+  </main>
+
+  <footer class="bg-amber-950 py-10 border-t border-amber-900">
+    <div
+      class="container max-w-4xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4"
+    >
+      <a routerLink="/" class="text-xl font-serif text-white">
+        Jonathan's <span class="italic text-amber-500">Coffee Shop</span>
+      </a>
+      <div class="flex items-center gap-2 text-white/50 font-sans text-sm">
+        <lucide-icon [img]="mapPin" class="w-4 h-4"></lucide-icon>
+        123 Lakeland FL
+      </div>
+      <p class="text-white/30 font-sans text-sm">https://www.linkedin.com/in/jonathan-padilla7/</p>
+    </div>
+  </footer>
+
+</div>

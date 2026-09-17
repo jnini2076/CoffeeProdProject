@@ -1,0 +1,1 @@
+CREATE INDEX IDX_ACCOUNT_USERNAME ON account(username);
