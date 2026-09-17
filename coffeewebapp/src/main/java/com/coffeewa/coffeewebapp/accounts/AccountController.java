@@ -42,8 +42,8 @@ public class AccountController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> SaveAccount(@RequestBody @Valid accountdto accountDto){
-          Optional <account> entity = accountservice.postAccount(accountDto);
+    public ResponseEntity<Void> SaveAccount(@RequestBody @Valid accountDTO accountDto){
+          Optional <account> entity = accountservice.CreateanAccount(accountDto);
 
      if(!entity.isPresent())
      {

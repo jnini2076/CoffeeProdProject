@@ -17,7 +17,7 @@ import lombok.AllArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class accountdto {
+public class accountDTO {
 
     @NotNull
     private String firstname;

@@ -21,7 +21,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.coffeewa.coffeewebapp.accounts.account;
-import com.coffeewa.coffeewebapp.accounts.accountdto;
+import com.coffeewa.coffeewebapp.accounts.accountDTO;
 import com.coffeewa.coffeewebapp.accounts.accountrepo;
 import com.coffeewa.coffeewebapp.accounts.accountservice;
 import com.coffeewa.coffeewebapp.config.JwtUtil;
@@ -45,12 +45,12 @@ class AccountServiceTest {
     @InjectMocks
     private accountservice accountService;
 
-    private accountdto testAccountDto;
+    private accountDTO testAccountDto;
     private account existingAccount;
 
     @BeforeEach
     void setUp() {
-        testAccountDto = new accountdto();
+        testAccountDto = new accountDTO();
         testAccountDto.setUsername("testuser");
         testAccountDto.setPassword("plainPassword123");
         testAccountDto.setFirstname("John");
@@ -148,7 +148,7 @@ class AccountServiceTest {
     @Test
     @DisplayName("Should handle null or invalid DTO gracefully")
     void testPostAccount_WithInvalidDto() {
-        accountdto invalidDto = new accountdto();
+        accountDTO invalidDto = new accountDTO();
         invalidDto.setUsername("user");
         invalidDto.setPassword("pass");
 

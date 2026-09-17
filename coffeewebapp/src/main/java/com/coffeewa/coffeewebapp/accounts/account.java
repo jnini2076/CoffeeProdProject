@@ -49,15 +49,7 @@ public class account {
     @Size(min = 8, message = "must be at least 8 characters long")
     private String password;
 
-    @JsonIgnore
-    private String role;
-
-     @JsonIgnore
-     private String totpSecret;
-
-     @JsonIgnore
-     private Boolean totpEnabled = false;
-
+    
      @JsonIgnore
      private Boolean verified = false;
 

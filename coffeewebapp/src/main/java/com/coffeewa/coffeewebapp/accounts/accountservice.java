@@ -47,14 +47,12 @@ public class accountservice {
     }
 
     @Transactional
-    public Optional <account> postAccount(accountdto dto){
+    public <accountResponseDTO> CreateanAccount(accountDTO dto){
 
-       Optional<account> possibleAccount = accountRepo.findByUsernameIgnoreCase(dto.getUsername());
+       account possibleAccount = accountRepo.findByUsernameIgnoreCase(dto.getUsername());
+                        orElseThrow(() -> new DuplicateResourceException("Username already exists"));
 
-       if(possibleAccount.isPresent()){
-        logger.info("username has already been taken");
-        return Optional.empty();
-       }
+       
 
        Optional<account> request = accountRepo.findByPhonenumber(dto.getPhonenumber());
        if(request.isPresent()){

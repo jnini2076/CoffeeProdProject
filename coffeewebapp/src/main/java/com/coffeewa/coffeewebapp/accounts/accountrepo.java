@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 public interface accountrepo extends JpaRepository<account, Long> {
 
     Optional<account> findByUsernameAndPassword(String username, String password);
-    Optional<account> findByUsernameIgnoreCase(String username);
+    account findByUsernameIgnoreCase(String username);
 
     Optional<account> findByPhonenumber(String phonenumber);
 
